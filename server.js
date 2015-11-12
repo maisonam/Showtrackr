@@ -58,6 +58,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var bson = require('bson');
 var bodyParser = require('body-parser');
 var app = express();
 var async = require('async');
@@ -78,9 +79,11 @@ app.set('port', process.env.PORT || 3000);
 app.use(compress())
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({ secret: 'keyboard cat', 
+                 saveUninitialized: true,
+                 resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000 }));
