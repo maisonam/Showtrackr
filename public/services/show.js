@@ -1,4 +1,13 @@
 angular.module('MyApp')
-  .factory('Show', ['$resource', function($resource) {
-    return $resource('/api/shows/:_id');
+  .factory('createSurvey', ['$resource', function($resource) {
+    return $resource('/api/surveys/csp/start');
+  }])
+  .factory('Survey', ['$resource', function($resource) {
+    return $resource('/api/surveys/responses/:key', { key: '@key' }, {
+    query:{method:'GET',isArray:false},
+    update: {method: 'PUT'}
+  });
   }]);
+
+
+  

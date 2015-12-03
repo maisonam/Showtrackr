@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShowTrackr</title>
+  <title>Diagnostics</title>
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
@@ -14,16 +14,15 @@
      role="navigation" bs-navbar>
   <div class="navbar-header">
     <a class="navbar-brand" href="/">
-      <span class="glyphicon glyphicon-film"></span>
-      Show<strong>Trackr</strong></a>
+      <span class="glyphicon"></span>
+      Diag<strong>nostics</strong></a>
   </div>
   <ul class="nav navbar-nav">
     <li data-match-route="/$"><a href="/">Home</a></li>
-    <li data-match-route="/add"><a href="/add">Add</a></li>
   </ul>
   <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
-    <li data-match-route="/login"><a href="/login">Login</a></li>
-    <li data-match-route="/signup"><a href="/signup">Sign up</a></li>
+<!--     <li data-match-route="/login"><a href="/login">Login</a></li>
+    <li data-match-route="/signup"><a href="/signup">Sign up</a></li> -->
   </ul>
   <ul class="nav navbar-nav pull-right" ng-if="currentUser">
     <li class="navbar-text" ng-bind="currentUser.email"></li>
@@ -32,9 +31,10 @@
 </div>
 
 <div ng-view></div>
- <script src="app.min.js"></script>
-<script src="templates.js"></script>
-<!-- <script src="vendor/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--<script src="app.min.js"></script>
+<script src="templates.js"></script>-->
+<script src="vendor/angular.min.js"></script>
 <script src="vendor/angular-strap.min.js"></script>
 <script src="vendor/angular-strap.tpl.min.js"></script>
 <script src="vendor/angular-messages.min.js"></script>
@@ -42,6 +42,7 @@
 <script src="vendor/angular-route.min.js"></script>
 <script src="vendor/angular-cookies.min.js"></script>
 <script src="vendor/moment.js"></script>
+<script src="vendor/lodash.min.js"></script>
 <script src="app.js"></script>
 <script src="controllers/main.js"></script>
 <script src="controllers/add.js"></script>
@@ -53,6 +54,6 @@
 <script src="services/subscription.js"></script>
 <script src="services/auth.js"></script>
 <script src="filters/fromNow.js"></script>
-<script src="directives/repeatPassword.js"></script> -->
+<script src="directives/repeatPassword.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <div class="container">
-    <ul class="alphabet">
+<!--     <ul class="alphabet">
       <li ng-repeat="char in alphabet">
         <span ng-click="filterByAlphabet(char)">{{char}}</span>
       </li>
@@ -9,28 +9,35 @@
       <li ng-repeat="genre in genres">
         <span ng-click="filterByGenre(genre)">{{genre}}</span>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </div>
 
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading">
-      {{headingTitle}}
-      <div class="pull-right">
-        <input class="search" type="text" ng-model="query.name" placeholder="Search...">
-      </div>
+      {{surveyTitle}}
     </div>
     <div class="panel-body">
       <div class="row show-list">
-        <div class="col-xs-4 col-md-3" ng-repeat="show in shows | filter:query | orderBy:'rating':true">
-          <a href="/shows/{{show._id}}">
-            <img class="img-rounded" ng-src="{{show.poster}}" width="100%"/>
-          </a>
-          <div class="text-center">
-            <a href="/shows/{{show._id}}">{{show.name}}</a>
-            <p class="text-muted">Episodes: {{show.episodes.length}}</p>
+        <div class="col-xs-12">
+         <p>{{surveyIntro}}</p>
+        </div>
+        <div class="col-xs-12">
+        <form method="post" ng-submit="formSubmit()" name="csp-form" ng-model="cspForm">
+          <div class="col-xs-4 col-md-6 panel">
+            
+            <question ng-repeat="question in questions" class="form-group" style="display: block;width: 100%;float: left;clear: both;margin-top: 35px;position: relative;">
+            </question>
+
+            <!-- <option ng-repeat="option in question.answerMeta.options" value="{{option.key}}">{{option.text}}</option> -->
+
+
+            <button type="submit" class="btn btn-default" id="form-submit">Submit</button>
+
+            </div>
           </div>
+        </form>
         </div>
       </div>
     </div>

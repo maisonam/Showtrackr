@@ -1,27 +1,45 @@
 angular.module('MyApp')
-  .controller('MainCtrl', ['$scope', 'Show', function($scope, Show) {
+  .controller('MainCtrl', ['$scope', 'createSurvey', 'Survey', function($scope, createSurvey, Survey) {
 
-    $scope.alphabet = ['0-9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-      'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-      'Y', 'Z'];
+    $scope.cspFormAnswers = {};
 
-    $scope.genres = ['Action', 'Adventure', 'Animation', 'Children', 'Comedy',
-      'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'Food',
-      'Home and Garden', 'Horror', 'Mini-Series', 'Mystery', 'News', 'Reality',
-      'Romance', 'Sci-Fi', 'Sport', 'Suspense', 'Talk Show', 'Thriller',
-      'Travel'];
+    $scope.surveyObj = createSurvey.save(function(survey, putResponseHeaders) {
+        
+        $scope.survey = survey;
+        
+        $scope.surveyKey = survey.key;
 
-    $scope.headingTitle = 'Top 12 Shows';
+        $scope.surveyTitle = survey.meta.title;
+        
+        $scope.surveyIntro = survey.meta.intro;
 
-    $scope.shows = Show.query();
+        $scope.surveyAnswers = {};//survey.answers;
+        
+        $scope.questions = survey.meta.questions;
 
-    $scope.filterByGenre = function(genre) {
-      $scope.shows = Show.query({ genre: genre });
-      $scope.headingTitle = genre;
+        var questions = _.forEach(survey.meta.questions, function(question, key) {
+
+          $scope.surveyAnswers[question.key] = {};
+          
+        });
+
+        console.log(survey);
+
+
+    });
+
+
+
+    $scope.formSubmit = function() {
+
+      $scope.survey.answers = $scope.surveyAnswers;
+
+      var key = $scope.surveyKey;
+      var survey = JSON.stringify($scope.survey);
+
+      Survey.update({key: key}, survey);
+
     };
 
-    $scope.filterByAlphabet = function(char) {
-      $scope.shows = Show.query({ alphabet: char });
-      $scope.headingTitle = char;
-    };
+      
   }]);

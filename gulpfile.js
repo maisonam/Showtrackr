@@ -6,6 +6,16 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var templateCache = require('gulp-angular-templatecache');
 var uncss = require('gulp-uncss');
+var browserSync = require('browser-sync').create();
+
+gulp.task('browserSync', function() {
+  browserSync.init({
+    proxy: {
+    target: "localhost"
+  }
+  });
+});
+
 
 gulp.task('sass', function() {
   gulp.src('public/stylesheets/style.scss')
@@ -15,12 +25,13 @@ gulp.task('sass', function() {
     // .pipe(uncss({
     //     html: ['public/views/**/*.html']
     // }))
-    .pipe(gulp.dest('public/stylesheets'));
+    .pipe(gulp.dest('public/stylesheets'))
+    .pipe(browserSync.stream({ once: true })); 
 });
 
 gulp.task('compress', function() {
   gulp.src([
-    'public/vendor/angular.js',
+    // 'public/vendor/angular.js',
     'public/vendor/*.js',
     'public/app.js',
     'public/services/*.js',
@@ -30,16 +41,18 @@ gulp.task('compress', function() {
   ])
     .pipe(concat('app.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(browserSync.stream({ once: true }));    
 });
 
 gulp.task('templates', function() {
   gulp.src('public/views/**/*.html')
     .pipe(templateCache({ root: 'views', module: 'MyApp' }))
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(browserSync.stream({ once: true })); 
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', ['browserSync'], function() {
   gulp.watch('public/stylesheets/*.scss', ['sass']);
   gulp.watch('public/views/**/*.html', ['templates']);
   gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/vendor'], ['compress']);
